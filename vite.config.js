@@ -12,12 +12,19 @@ export default defineConfig(() => ({
     port: 8080,
   },
   plugins: [
-    react(),
+    react({
+      include: '**/*.js',
+    }),
   ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+  },
+  esbuild: {
+    loader: {
+      '.js': 'jsx'
+    }
   },
   build: {
     rollupOptions: {
