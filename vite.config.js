@@ -22,9 +22,7 @@ export default defineConfig(() => ({
     },
   },
   esbuild: {
-    loader: {
-      '.js': 'jsx'
-    }
+    loader: 'jsx'
   },
   build: {
     rollupOptions: {
