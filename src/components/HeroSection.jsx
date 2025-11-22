@@ -29,7 +29,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="min-h-screen flex flex-col justify-center items-center py-20">
+    <section id="home" className="min-h-screen flex flex-col justify-center items-center py-20">
       <div className="text-center">
         <p className="text-lg mb-4">Hello, I'm</p>
         <h1 className="text-4xl font-bold mb-4">Senesh Perera</h1>

@@ -5,12 +5,12 @@ import { Menu, X } from 'lucide-react';
 const NavBar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
 
   const navLinks = [
-    { name: 'Home', href: '#home' },
+    { name: 'Home', href: '#hero' },
     { name: 'About', href: '#about' },
     { name: 'Skills', href: '#skills' },
+    { name: 'Designs', href: '#graphic-design' },
     { name: 'Projects', href: '#projects' },
     { name: 'Testimonials', href: '#testimonials' },
     { name: 'Contact', href: '#contact' },
@@ -20,34 +20,21 @@ const NavBar = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
-      
-      // Find the current active section based on scroll position
-      const sections = navLinks.map(link => link.href.substring(1));
-      let current = '';
-      
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            current = section;
-            break;
-          }
-        }
-      }
-      
-      if (current && current !== activeSection) {
-        setActiveSection(current);
-      }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [activeSection, navLinks]);
+  }, []);
 
-  // Close mobile menu when a link is clicked
-  const handleLinkClick = () => {
+  // Close mobile menu when a link is clicked and scroll smoothly to section
+  const handleLinkClick = (event, href) => {
+    event.preventDefault();
     setIsMobileMenuOpen(false);
+    const id = href.replace('#', '');
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
@@ -58,7 +45,7 @@ const NavBar = () => {
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <a href="#home" className="text-xl font-bold text-gradient">
+        <a href="#hero" className="text-xl font-bold text-gradient" onClick={handleLinkClick}>
           Senesh<span className="text-primary">.</span>
         </a>
         
@@ -68,7 +55,8 @@ const NavBar = () => {
             <a
               key={link.name}
               href={link.href}
-              className={`nav-link ${activeSection === link.href.substring(1) ? 'active' : ''}`}
+              className="nav-link"
+              onClick={(e) => handleLinkClick(e, link.href)}
             >
               {link.name}
             </a>
@@ -102,7 +90,7 @@ const NavBar = () => {
                     key={link.name}
                     href={link.href}
                     className="text-xl font-medium nav-link"
-                    onClick={handleLinkClick}
+                    onClick={(e) => handleLinkClick(e, link.href)}
                   >
                     {link.name}
                   </a>
