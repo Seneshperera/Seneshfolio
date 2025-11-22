@@ -12,9 +12,7 @@ export default defineConfig(() => ({
     port: 8080,
   },
   plugins: [
-    react({
-      include: '**/*.js',
-    }),
+    react(),
   ],
   resolve: {
     alias: {
